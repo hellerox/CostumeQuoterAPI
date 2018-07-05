@@ -25,15 +25,15 @@ type App struct {
 func main() {
 	a := App{}
 	var err error
-	dbinfo := "postgres://" + DB_USER + ":" + DB_PASSWORD + "@localhost/" + DB_NAME
+	dbinfo := "postgres://" + DB_USER + ":" + DB_PASSWORD + "@192.168.2.19/" + DB_NAME
 	a.DB, err = sql.Open("postgres", dbinfo)
 	if err != nil {
 		log.Fatal(err)
 	}
 	a.Router = mux.NewRouter()
-	a.Router.HandleFunc("/materials", a.queryMaterial).Methods("GET")
+	a.Router.HandleFunc("/material", a.queryMaterial).Methods("GET")
 	a.Router.HandleFunc("/material", a.createMaterial).Methods("POST")
-	log.Fatal(http.ListenAndServe(":8000", a.Router))
+	log.Fatal(http.ListenAndServe(":8080", a.Router))
 
 }
 
